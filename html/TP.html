@@ -1,0 +1,326 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>TP</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-08-31"><meta name="DC.source" content="TP.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Lecture images F(X)</a></li><li><a href="#3">Afficher images</a></li><li><a href="#4">Mesure de similarit&eacute;</a></li><li><a href="#6">SSD</a></li><li><a href="#7">Entropie conjointe</a></li><li><a href="#8">Information mutuelle</a></li><li><a href="#9">Correlation crois&eacute;e modifi&eacute;</a></li><li><a href="#10">Diff&eacute;rence images pixel</a></li><li><a href="#11">Recherche d'images</a></li><li><a href="#12">G&eacute;n&eacute;ration de l'image T(M(x)) &agrave; partir d'une image dans l'ensemble I</a></li><li><a href="#13">L'optimisation SSD, Recherche d'images</a></li><li><a href="#14">L'optimisation Entropie conjointe, Recherche d'images</a></li><li><a href="#15">L'optimisation Correlation crois&eacute;e modifi&eacute;, Recherche d'images</a></li><li><a href="#16">L'optimisation Diff&eacute;rence Image, Recherche d'images</a></li><li><a href="#17">Recherche rotation</a></li><li><a href="#18">G&eacute;n&eacute;ration de l'image T(M(x)) &agrave; partir d'une image dans l'ensemble I</a></li><li><a href="#19">L'optimisation SSD</a></li><li><a href="#20">L'optimisation Entropie conjointe</a></li><li><a href="#21">L'optimisation Correlation crois&eacute;e modifi&eacute;</a></li><li><a href="#22">L'optimisation Diff&eacute;rence images pixel</a></li><li><a href="#23">L'optimisation descente de gradient Diff&eacute;rence Correlation crois&eacute;e modifi&eacute;</a></li><li><a href="#24">Commentaire</a></li></ul></div><pre class="codeinput">clear <span class="string">all</span>; close <span class="string">all</span>
+addpath(<span class="string">'./SimilarityMeasure'</span>)
+</pre><h2 id="2">Lecture images F(X)</h2><pre class="codeinput">path = <span class="string">'./Images/'</span>;
+S = dir([path, <span class="string">'*.jpg'</span>]);
+<span class="keyword">for</span> k = 1:numel(S)
+    images(:,:, k) = double(rgb2gray(imread([path,S(k).name])));
+    labels{k} = regexprep(S(k).name, <span class="string">'.png'</span>, <span class="string">''</span>);
+<span class="keyword">end</span>
+[m, n, s] = size(images);
+</pre><h2 id="3">Afficher images</h2><pre class="codeinput">figure;
+colormap(gray)
+<span class="keyword">for</span> k = 1:s
+    subplot(5, 6, k)
+    imagesc(images(:,:, k))
+    title(labels{k})
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="TP_01.png" alt=""> <h2 id="4">Mesure de similarit&eacute;</h2><p>I est l'ensemble des images g&eacute;n&eacute;r&eacute; par la fonction F(x), C est l'ensemble des caract&eacute;ritique g&eacute;n&eacute;rer par la fonction Feature Extraction</p><p>Dans ce TP les caract&eacute;ristiques sont les intensit&eacute;s des pixels.</p><p>Une mesure de similarit&eacute; S est une fonction C &times; C -&gt; R</p><p>Dans l'algorithme de recalage cette fonction est vu comme une fonction de co&ucirc;t &agrave; optimis&eacute; afin d'estim&eacute; theta la rotation de l'image transform&eacute; g&eacute;n&eacute;r&eacute; par la fonction T(M(x)). Afin d'impl&eacute;menter un algorithme d'optimisation de fa&ccedil;on &agrave; &ecirc;tre invariant aux type de ces fonctions les fonction de co&ucirc;t poss&egrave;derons ces propri&eacute;t&eacute;s</p><p><img src="TP_eq12313704245555713703.png" alt="$$\forall x,y \in I, S(x,y) = S(y,x) $$"> Sym&eacute;trie</p><p><img src="TP_eq12983405141007127662.png" alt="$$\forall x,y \in I, S(x,x) \le S(y,x) $$"> Minimalit&eacute;</p><p><img src="TP_eq14944986725073028230.png" alt="$$\forall x,y \in I, S(x,y) \ge 0 $$"> Positivit&eacute;</p><h2 id="6">SSD</h2><pre class="codeinput">Matrice(images, SSD()).show();
+</pre><img vspace="5" hspace="5" src="TP_02.png" alt=""> <h2 id="7">Entropie conjointe</h2><pre class="codeinput">Matrice(images, EntropieConjointe()).show();
+</pre><img vspace="5" hspace="5" src="TP_03.png" alt=""> <img vspace="5" hspace="5" src="TP_04.png" alt=""> <h2 id="8">Information mutuelle</h2><p>Mesure utile si la fonction de co&ucirc;t est &agrave; maximis&eacute;</p><p><img src="TP_eq13285902095893734271.png" alt="$$\forall x,y \in I, H(x,y) \le H(x)+H(y)$$"></p><pre class="codeinput">Matrice(images, InformationMutuelle()).show();
+</pre><img vspace="5" hspace="5" src="TP_05.png" alt=""> <h2 id="9">Correlation crois&eacute;e modifi&eacute;</h2><p>Pour avoir les bonnes propri&eacute;t&eacute;s CCm = (1-CC)^2</p><pre class="codeinput">Matrice(images, CrossCorrelation()).show();
+</pre><img vspace="5" hspace="5" src="TP_06.png" alt=""> <h2 id="10">Diff&eacute;rence images pixel</h2><pre class="codeinput">Matrice(images, DiffImages()).show();
+</pre><img vspace="5" hspace="5" src="TP_07.png" alt=""> <h2 id="11">Recherche d'images</h2><h2 id="12">G&eacute;n&eacute;ration de l'image T(M(x)) &agrave; partir d'une image dans l'ensemble I</h2><pre class="codeinput">value = floor(rand(1)*size(images, 3))+1;
+image1 = images(:,:,value);
+figure;
+colormap(gray)
+imagesc(image1)
+title([<span class="string">'Images : '</span>, labels{value}])
+</pre><img vspace="5" hspace="5" src="TP_08.png" alt=""> <h2 id="13">L'optimisation SSD, Recherche d'images</h2><pre class="codeinput">OptimizationImage(SSD(), value).measure(image1, images).show(labels);
+</pre><img vspace="5" hspace="5" src="TP_09.png" alt=""> <h2 id="14">L'optimisation Entropie conjointe, Recherche d'images</h2><pre class="codeinput">OptimizationImage(EntropieConjointe(), value).measure(image1, images).show(labels);
+</pre><img vspace="5" hspace="5" src="TP_10.png" alt=""> <h2 id="15">L'optimisation Correlation crois&eacute;e modifi&eacute;, Recherche d'images</h2><pre class="codeinput">OptimizationImage(CrossCorrelation(), value).measure(image1, images).show(labels);
+</pre><img vspace="5" hspace="5" src="TP_11.png" alt=""> <h2 id="16">L'optimisation Diff&eacute;rence Image, Recherche d'images</h2><pre class="codeinput">OptimizationImage(DiffImages(), value).measure(image1, images).show(labels);
+</pre><img vspace="5" hspace="5" src="TP_12.png" alt=""> <h2 id="17">Recherche rotation</h2><h2 id="18">G&eacute;n&eacute;ration de l'image T(M(x)) &agrave; partir d'une image dans l'ensemble I</h2><pre class="codeinput">[theta, index, F, T]  = GenImages(images);
+figure;
+colormap(gray)
+imagesc(T)
+title([<span class="string">'Image : '</span>, labels{index} ,<span class="string">' Rotation : '</span>, num2str(theta), <span class="string">' degr&eacute;es'</span>])
+</pre><img vspace="5" hspace="5" src="TP_13.png" alt=""> <h2 id="19">L'optimisation SSD</h2><pre class="codeinput">OptimizationRotation(SSD(),theta).measure(T, F).show();
+</pre><pre class="codeoutput">
+pass =
+
+     2
+
+
+pass =
+
+     3
+
+
+pass =
+
+     4
+
+
+pass =
+
+     5
+
+
+pass =
+
+     6
+
+
+pass =
+
+     7
+
+</pre><img vspace="5" hspace="5" src="TP_14.png" alt=""> <img vspace="5" hspace="5" src="TP_15.png" alt=""> <img vspace="5" hspace="5" src="TP_16.png" alt=""> <img vspace="5" hspace="5" src="TP_17.png" alt=""> <img vspace="5" hspace="5" src="TP_18.png" alt=""> <img vspace="5" hspace="5" src="TP_19.png" alt=""> <img vspace="5" hspace="5" src="TP_20.png" alt=""> <h2 id="20">L'optimisation Entropie conjointe</h2><pre class="codeinput">OptimizationRotation(EntropieConjointe(), theta).measure(T, F).show();
+</pre><pre class="codeoutput">
+pass =
+
+     2
+
+
+pass =
+
+     3
+
+
+pass =
+
+     4
+
+
+pass =
+
+     5
+
+
+pass =
+
+     6
+
+
+pass =
+
+     7
+
+</pre><img vspace="5" hspace="5" src="TP_21.png" alt=""> <img vspace="5" hspace="5" src="TP_22.png" alt=""> <img vspace="5" hspace="5" src="TP_23.png" alt=""> <img vspace="5" hspace="5" src="TP_24.png" alt=""> <img vspace="5" hspace="5" src="TP_25.png" alt=""> <img vspace="5" hspace="5" src="TP_26.png" alt=""> <img vspace="5" hspace="5" src="TP_27.png" alt=""> <h2 id="21">L'optimisation Correlation crois&eacute;e modifi&eacute;</h2><pre class="codeinput">OptimizationRotation(CrossCorrelation(), theta).measure(T, F).show();
+</pre><pre class="codeoutput">
+pass =
+
+     2
+
+
+pass =
+
+     3
+
+
+pass =
+
+     4
+
+
+pass =
+
+     5
+
+
+pass =
+
+     6
+
+
+pass =
+
+     7
+
+</pre><img vspace="5" hspace="5" src="TP_28.png" alt=""> <img vspace="5" hspace="5" src="TP_29.png" alt=""> <img vspace="5" hspace="5" src="TP_30.png" alt=""> <img vspace="5" hspace="5" src="TP_31.png" alt=""> <img vspace="5" hspace="5" src="TP_32.png" alt=""> <img vspace="5" hspace="5" src="TP_33.png" alt=""> <img vspace="5" hspace="5" src="TP_34.png" alt=""> <h2 id="22">L'optimisation Diff&eacute;rence images pixel</h2><pre class="codeinput">OptimizationRotation(DiffImages(), theta).measure(T, F).show();
+</pre><pre class="codeoutput">
+pass =
+
+     2
+
+
+pass =
+
+     3
+
+
+pass =
+
+     4
+
+
+pass =
+
+     5
+
+
+pass =
+
+     6
+
+
+pass =
+
+     7
+
+</pre><img vspace="5" hspace="5" src="TP_35.png" alt=""> <img vspace="5" hspace="5" src="TP_36.png" alt=""> <img vspace="5" hspace="5" src="TP_37.png" alt=""> <img vspace="5" hspace="5" src="TP_38.png" alt=""> <img vspace="5" hspace="5" src="TP_39.png" alt=""> <img vspace="5" hspace="5" src="TP_40.png" alt=""> <img vspace="5" hspace="5" src="TP_41.png" alt=""> <h2 id="23">L'optimisation descente de gradient Diff&eacute;rence Correlation crois&eacute;e modifi&eacute;</h2><pre class="codeinput"><span class="comment">%OptimizationRotationGradient(CrossCorrelation(), theta).measure(T, F).show();</span>
+</pre><h2 id="24">Commentaire</h2><p>Si on prend une valeur de rotation dans l'ensemble R il existera alors toujours une erreur puisque l'ensemble des images transform&eacute;s par cette rotation est tr&egrave;s largement inf&eacute;rieur &agrave; la pr&eacute;cision de ces rotations th&eacute;oriques.</p><p>Ces mesures de similarit&eacute;s restent pertinentes dans le cas o&ugrave; les images sont les m&ecirc;mes, elle permette de guider l'optimisation vers des valeurs particuli&egrave;res, les minimaux. L'&eacute;galit&eacute; entre images ne pourrait pas permettre cela.</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+clear all; close all
+addpath('./SimilarityMeasure')
+%% Lecture images F(X)
+path = './Images/';
+S = dir([path, '*.jpg']);
+for k = 1:numel(S)
+    images(:,:, k) = double(rgb2gray(imread([path,S(k).name])));
+    labels{k} = regexprep(S(k).name, '.png', '');
+end
+[m, n, s] = size(images);
+%% Afficher images
+figure;
+colormap(gray)
+for k = 1:s
+    subplot(5, 6, k)
+    imagesc(images(:,:, k))
+    title(labels{k})
+end
+%% Mesure de similarité
+%%
+% 
+% I est l'ensemble des images généré par la fonction F(x),
+% C est l'ensemble des caractéritique générer par la fonction Feature Extraction
+% 
+% Dans ce TP les caractéristiques sont les intensités des pixels.
+% 
+% Une mesure de similarité S est une fonction C × C -> R
+%
+% Dans l'algorithme de recalage cette fonction est vu comme une fonction
+% de coût à optimisé afin d'estimé theta la rotation de l'image transformé généré par la fonction T(M(x)). 
+% Afin d'implémenter un algorithme d'optimisation de façon à être invariant 
+% aux type de ces fonctions les fonction de coût possèderons ces propriétés
+%
+% $$\forall x,y \in I, S(x,y) = S(y,x) $$ Symétrie
+% 
+% $$\forall x,y \in I, S(x,x) \le S(y,x) $$ Minimalité 
+% 
+% $$\forall x,y \in I, S(x,y) \ge 0 $$ Positivité
+%% SSD
+Matrice(images, SSD()).show();
+%% Entropie conjointe
+Matrice(images, EntropieConjointe()).show();
+%% Information mutuelle
+% Mesure utile si la fonction de coût est à maximisé
+% 
+% $$\forall x,y \in I, H(x,y) \le H(x)+H(y)$$
+% 
+Matrice(images, InformationMutuelle()).show();
+%% Correlation croisée modifié
+% Pour avoir les bonnes propriétés CCm = (1-CC)^2
+Matrice(images, CrossCorrelation()).show();
+%% Différence images pixel
+Matrice(images, DiffImages()).show();
+%% Recherche d'images
+%% Génération de l'image T(M(x)) à partir d'une image dans l'ensemble I
+value = floor(rand(1)*size(images, 3))+1;
+image1 = images(:,:,value);
+figure;
+colormap(gray)
+imagesc(image1)
+title(['Images : ', labels{value}])
+%% L'optimisation SSD, Recherche d'images
+OptimizationImage(SSD(), value).measure(image1, images).show(labels);
+%% L'optimisation Entropie conjointe, Recherche d'images
+OptimizationImage(EntropieConjointe(), value).measure(image1, images).show(labels);
+%% L'optimisation Correlation croisée modifié, Recherche d'images
+OptimizationImage(CrossCorrelation(), value).measure(image1, images).show(labels);
+%% L'optimisation Différence Image, Recherche d'images
+OptimizationImage(DiffImages(), value).measure(image1, images).show(labels);
+%% Recherche rotation
+%% Génération de l'image T(M(x)) à partir d'une image dans l'ensemble I
+[theta, index, F, T]  = GenImages(images);
+figure;
+colormap(gray)
+imagesc(T)
+title(['Image : ', labels{index} ,' Rotation : ', num2str(theta), ' degrées'])
+%% L'optimisation SSD
+OptimizationRotation(SSD(),theta).measure(T, F).show();
+%% L'optimisation Entropie conjointe
+OptimizationRotation(EntropieConjointe(), theta).measure(T, F).show();
+%% L'optimisation Correlation croisée modifié
+OptimizationRotation(CrossCorrelation(), theta).measure(T, F).show();
+%% L'optimisation Différence images pixel
+OptimizationRotation(DiffImages(), theta).measure(T, F).show();
+%% L'optimisation descente de gradient Différence Correlation croisée modifié
+%OptimizationRotationGradient(CrossCorrelation(), theta).measure(T, F).show();
+%% Commentaire
+% Si on prend une valeur de rotation dans l'ensemble R il existera alors toujours une erreur 
+% puisque l'ensemble des images transformés par cette rotation est très largement inférieur à la précision de ces rotations théoriques.
+% 
+% Ces mesures de similarités restent pertinentes dans le cas où les images sont les mêmes, 
+% elle permette de guider l'optimisation vers des valeurs particulières, les minimaux. 
+% L'égalité entre images ne pourrait pas permettre cela.
+##### SOURCE END #####
+--></body></html>
